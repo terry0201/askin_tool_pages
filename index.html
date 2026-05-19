@@ -19,7 +19,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 40px 20px;
+            padding: 20px 10px; /* 縮小手機版的網頁內距 */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -28,20 +28,24 @@
         h1 {
             margin-bottom: 20px;
             font-weight: 600;
+            font-size: 24px; /* 調小手機標題 */
+            text-align: center;
         }
 
         /* 功能控制面板 */
         .control-panel {
             background: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
             align-items: center;
             justify-content: center;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .input-group {
@@ -65,7 +69,7 @@
             background: transparent;
             padding: 6px;
             font-size: 14px;
-            width: 110px;
+            width: 100px;
             outline: none;
         }
 
@@ -82,7 +86,7 @@
         }
         .cols-slider-group input[type="range"] {
             cursor: pointer;
-            width: 100px;
+            width: 90px;
         }
         .cols-span {
             display: inline-block;
@@ -92,8 +96,8 @@
         }
 
         button {
-            padding: 10px 20px;
-            font-size: 15px;
+            padding: 10px 16px;
+            font-size: 14px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -107,19 +111,21 @@
         .btn-download { background-color: var(--success-color); color: white; }
         .btn-download:hover { background-color: #259e93; }
 
-        /* 色表主要區塊（截圖範圍） */
+        /* 色表主要區塊（解決手機跑版的關鍵） */
         .palette-container {
             background-color: var(--card-bg);
-            padding: 40px;
+            padding: 30px 20px; /* 稍微縮小手機版白框內距 */
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            
+            /* 電腦版預設使用 Grid 嚴格控制每排數量 */
             display: grid;
-            gap: 35px 30px;
+            gap: 30px 20px;
             justify-content: center;
-            max-width: 95vw;
+            
+            max-width: 100%;
             width: fit-content;
             box-sizing: border-box;
-            transition: grid-template-columns 0.2s ease;
         }
 
         /* 單個色圈項目 */
@@ -128,33 +134,32 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            width: 120px;
-            cursor: grab; /* 提示可以抓取拖曳 */
+            width: 100px; /* 從 120px 稍微縮小到 100px，在手機上更精緻 */
+            cursor: grab;
             padding: 5px;
             border-radius: 8px;
-            transition: transform 0.2s, background-color 0.2s;
+            box-sizing: border-box;
         }
 
         .color-item:active {
             cursor: grabbing;
         }
 
-        /* 正在被拖曳的物件外觀 */
         .color-item.dragging {
             opacity: 0.4;
             transform: scale(0.95);
             background-color: #f0f0f0;
         }
 
-        /* 顏色圓圈（按鈕外觀） */
+        /* 顏色圓圈 */
         .color-circle-label {
-            width: 90px;
-            height: 90px;
+            width: 80px; /* 從 90px 調整為 80px，極大提升手機螢幕空間 */
+            height: 80px;
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1), 0 4px 10px rgba(0,0,0,0.08);
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.08);
             transition: transform 0.2s ease;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .color-circle-label:hover {
@@ -174,13 +179,13 @@
             text-align: center;
             border: 1px solid transparent;
             background: transparent;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
-            padding: 4px;
+            padding: 4px 0;
             border-radius: 4px;
             outline: none;
             transition: all 0.2s;
-            cursor: text; /* 確保輸入框內滑桿游標正常 */
+            cursor: text;
         }
 
         .color-name:hover, .color-name:focus {
@@ -191,15 +196,15 @@
         /* 刪除按鈕 */
         .btn-delete {
             position: absolute;
-            top: -5px;
-            right: 5px;
+            top: -2px;
+            right: 2px;
             background-color: var(--danger-color);
             color: white;
             border: none;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
-            font-size: 14px;
+            font-size: 12px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -210,8 +215,34 @@
             z-index: 10;
         }
 
-        .color-item:hover .btn-delete {
-            opacity: 1;
+        /* 在電腦上有 hover 時才顯示刪除鈕 */
+        @media (min-width: 769px) {
+            .color-item:hover .btn-delete {
+                opacity: 1;
+            }
+        }
+        
+        /* 📱 RWD 手機版關鍵修正樣式 */
+        @media (max-width: 768px) {
+            /* 手機上放棄強行 Grid，改用 Flex 彈性換行且自動置中 */
+            .palette-container {
+                display: flex !important;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-content: center;
+                gap: 20px 15px; /* 手機緊湊間距 */
+                width: 100%;
+            }
+            
+            /* 手機上直接讓刪除鈕顯示（因為手機沒有滑鼠 Hover 狀態） */
+            .btn-delete {
+                opacity: 1;
+            }
+            
+            /* 手機隱藏每排數量滑桿，因為手機會自動適應 */
+            .cols-slider-group {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -226,7 +257,7 @@
             <input type="text" id="input-hex" placeholder="例如: FF5733" maxlength="6">
         </div>
         <div class="input-group">
-            <input type="text" id="input-name" placeholder="顏色名稱 (選填)">
+            <input type="text" id="input-name" placeholder="顏色名稱">
         </div>
         
         <button class="btn-add" onclick="quickAddColor()">+ 指定色碼新增</button>
@@ -251,39 +282,37 @@
 
         // 17 個指定的預設顏色
         const defaultColors = [
-            { hex: '#F2F1D7', name: '奶油白(白)' },
-            { hex: '#E8F0AA', name: '嫩草黃(淺黃)' },
-            { hex: '#EED6CC', name: '藕粉色(粉)' },
-            { hex: '#E9A7CE', name: '糖果粉(桃紅)' },
-            { hex: '#9DBAE9', name: '寧靜藍(淺藍)' },
-            { hex: '#B5A8E1', name: '薰衣草紫(淺紫)' },
-            { hex: '#3E276A', name: '暮光紫(深紫)' },
-            { hex: '#A8E6CF', name: '蒂芙尼綠(Tiffiny綠)' },
-            { hex: '#D2F13A', name: '檸檬綠(淺綠)' },
-            { hex: '#3EB034', name: '翠草綠(綠)' },
-            { hex: '#00A896', name: '孔雀藍綠(藍綠)' },
-            { hex: '#ADB1B4', name: '現代灰(灰)' },
-            { hex: '#C2C5C8', name: '極光銀(銀)' },
-            { hex: '#544A41', name: '摩卡棕(咖)' },
-            { hex: '#2C2F33', name: '碳灰黑(黑)' },
-            { hex: '#1B264F', name: '深海藍(深藍)' },
-            { hex: '#FFD131', name: '向日葵黃(黃)' },
-            { hex: '#E63946', name: '珊瑚紅(紅)' },
-            { hex: '#682132', name: '深酒紅(深紅)' } 
+            { hex: '#F2F1D7', name: '奶油白' },
+            { hex: '#E8F0AA', name: '嫩草黃' },
+            { hex: '#EED6CC', name: '藕粉色' },
+            { hex: '#E9A7CE', name: '糖果粉' },
+            { hex: '#9DBAE9', name: '寧靜藍' },
+            { hex: '#B5A8E1', name: '薰衣草紫' },
+            { hex: '#A8E6CF', name: '蒂芙尼綠' },
+            { hex: '#D2F13A', name: '檸檬綠' },
+            { hex: '#3EB034', name: '翠草綠' },
+            { hex: '#00A896', name: '孔雀藍綠' },
+            { hex: '#ADB1B4', name: '現代灰' },
+            { hex: '#544A41', name: '摩卡棕' },
+            { hex: '#2C2F33', name: '碳灰黑' },
+            { hex: '#1B264F', name: '深海藍' },
+            { hex: '#FFD131', name: '向日葵黃' },
+            { hex: '#B8DE4C', name: '奇異果綠' },
+            { hex: '#E63946', name: '珊瑚紅' }
         ];
 
         // 初始化
         changeColumns(currentCols);
         defaultColors.forEach(item => addColorItem(item.hex, item.name));
-        initDragAndDrop(); // 初始化拖放監聽
+        initDragAndDrop();
 
         /**
-         * 自由調整每排顯示數量
+         * 自由調整每排顯示數量 (電腦版生效)
          */
         function changeColumns(val) {
             currentCols = parseInt(val);
             document.getElementById('cols-val').innerText = `${val} 個`;
-            container.style.gridTemplateColumns = `repeat(${currentCols}, 120px)`;
+            container.style.gridTemplateColumns = `repeat(${currentCols}, 100px)`;
         }
 
         /**
@@ -295,7 +324,7 @@
 
             const itemDiv = document.createElement('div');
             itemDiv.className = 'color-item';
-            itemDiv.draggable = true; // 開啟 HTML5 拖曳屬性
+            itemDiv.draggable = true; 
 
             itemDiv.innerHTML = `
                 <button class="btn-delete" title="刪除" onclick="this.parentElement.remove()">×</button>
@@ -305,8 +334,6 @@
             `;
 
             container.appendChild(itemDiv);
-
-            // 替新加入的元素綁定拖曳事件
             bindItemDragEvents(itemDiv);
         }
 
@@ -340,59 +367,56 @@
             label.style.backgroundColor = input.value;
         }
 
-        /* ================= HTML5 原生拖拉功能邏輯 ================= */
-        
+        /* ================= HTML5 原生拖拉排序功能 ================= */
         function bindItemDragEvents(item) {
-            item.addEventListener('dragstart', () => {
+            item.addEventListener('dragstart', () => item.classList.add('dragging'));
+            item.addEventListener('dragend', () => item.classList.remove('dragging'));
+            
+            // 貼心支援行動裝置觸控拖曳 (避免手機上完全無法拖拉)
+            item.addEventListener('touchstart', (e) => {
+                if(e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
                 item.classList.add('dragging');
-            });
-
-            item.addEventListener('dragend', () => {
-                item.classList.remove('dragging');
-            });
+            }, {passive: true});
+            
+            item.addEventListener('touchend', () => item.classList.remove('dragging'));
         }
 
         function initDragAndDrop() {
-            // 監聽容器內的滑鼠拖曳移動
             container.addEventListener('dragover', e => {
-                e.preventDefault(); // 必須阻擋預設事件才能觸發 drop
+                e.preventDefault();
                 const afterElement = getDragAfterElement(container, e.clientX, e.clientY);
                 const draggingItem = document.querySelector('.color-item.dragging');
-                
                 if (draggingItem) {
-                    if (afterElement == null) {
-                        container.appendChild(draggingItem); // 放最尾端
-                    } else {
-                        container.insertBefore(draggingItem, afterElement); // 插在某個元件前面
-                    }
+                    if (afterElement == null) container.appendChild(draggingItem);
+                    else container.insertBefore(draggingItem, afterElement);
                 }
             });
+
+            // 手機觸控移動排序支援
+            container.addEventListener('touchmove', e => {
+                const draggingItem = document.querySelector('.color-item.dragging');
+                if (!draggingItem) return;
+                
+                const touch = e.touches[0];
+                const afterElement = getDragAfterElement(container, touch.clientX, touch.clientY);
+                if (afterElement == null) container.appendChild(draggingItem);
+                else container.insertBefore(draggingItem, afterElement);
+            }, {passive: true});
         }
 
-        /**
-         * 計算當前滑鼠位置最靠近哪一個色圈元件
-         */
         function getDragAfterElement(container, x, y) {
             const dragElements = [...container.querySelectorAll('.color-item:not(.dragging)')];
-
             return dragElements.reduce((closest, child) => {
                 const box = child.getBoundingClientRect();
-                // 計算滑鼠中心點距離元件中心的距離
                 const offsetX = x - (box.left + box.width / 2);
                 const offsetY = y - (box.top + box.height / 2);
                 const distance = Math.sqrt(offsetX * offsetX + offsetY * offsetY);
-
-                // 判斷是否為最接近的元件
-                if (distance < closest.distance) {
-                    return { distance: distance, element: child };
-                } else {
-                    return closest;
-                }
+                if (distance < closest.distance) return { distance: distance, element: child };
+                else return closest;
             }, { distance: Infinity }).element;
         }
 
-
-        /* ================= 原生 Canvas 高畫質圖片下載 ================= */
+        /* ================= 原生 Canvas 高畫質圖片下載（確保手機下載依舊完美整齊） ================= */
         function downloadPalette() {
             const items = document.querySelectorAll('.color-item');
             if (items.length === 0) {
@@ -400,12 +424,14 @@
                 return;
             }
 
-            const itemWidth = 120;
-            const itemHeight = 140;
-            const gapX = 30;
-            const gapY = 35;
+            // 下載圖檔基準配置（採用優化後的尺寸）
+            const itemWidth = 100;
+            const itemHeight = 130;
+            const gapX = 20;
+            const gapY = 30;
             const padding = 40;
             
+            // 核心修正：不論手機當前畫面被擠成幾排，導出的圖片一律精準維持滑桿設定的 currentCols 寬度排版
             const maxCols = Math.min(items.length, currentCols); 
             const rows = Math.ceil(items.length / maxCols);
 
@@ -421,20 +447,19 @@
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-            // 這裡會嚴格抓取「目前 DOM 樹上的最新排序」進行繪製
             items.forEach((item, index) => {
                 const col = index % maxCols;
                 const row = Math.floor(index / maxCols);
 
                 const x = padding + col * (itemWidth + gapX) + itemWidth / 2;
-                const y = padding + row * (itemHeight + gapY) + 45; 
+                const y = padding + row * (itemHeight + gapY) + 40; // 圓心 Y 軸
 
                 const hexColor = item.querySelector('.color-picker').value;
                 const colorName = item.querySelector('.color-name').value || '未命名';
 
-                // 1. 畫圓圈
+                // 1. 畫圓圈 (半徑 40)
                 ctx.beginPath();
-                ctx.arc(x, y, 45, 0, Math.PI * 2); 
+                ctx.arc(x, y, 40, 0, Math.PI * 2); 
                 ctx.fillStyle = hexColor;
                 ctx.fill();
                 
@@ -444,9 +469,9 @@
 
                 // 2. 寫文字
                 ctx.fillStyle = '#333333';
-                ctx.font = '500 14px -apple-system, BlinkMacSystemFont, Arial, sans-serif';
+                ctx.font = '500 13px -apple-system, BlinkMacSystemFont, Arial, sans-serif';
                 ctx.textAlign = 'center';
-                ctx.fillText(colorName, x, y + 45 + 22); 
+                ctx.fillText(colorName, x, y + 40 + 20); 
             });
 
             const link = document.createElement('a');
