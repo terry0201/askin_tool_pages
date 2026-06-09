@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>保溫瓶一日店長流程產生器 v3</title>
+    <title>保溫瓶一日店長流程產生器</title>
     <style>
         :root {
             --primary-color: #0284c7;
@@ -239,7 +239,7 @@
                 <input type="number" id="d6" value="7" min="0">
             </div>
             <div class="step-row" id="row7">
-                <input type="checkbox" id="cb7" checked>
+                <input type="checkbox" id="cb7">
                 <label for="cb7">7. 1:1 人形立牌現場競標</label>
                 <input type="number" id="d7" value="5" min="0">
             </div>
@@ -290,15 +290,15 @@
 
         // 所有環節原始資料
         const stepsData = [
-            { id: 1, getText: (s, e, d) => `\n​${s}－${e}｜開場 (${d} min)\n• 一日店長（${name}）進場，向現場粉絲打招呼與自我介紹、現場擺拍 2min\n• 開場舞 3min` },
+            { id: 1, getText: (s, e, d) => `\n​${s}－${e}｜開場 (${d} min)\n• 一日店長（${name}）進場，向現場粉絲打招呼與自我介紹、現場擺拍 3min\n• 開場舞 2min` },
             { id: 2, getText: (s, e, d) => `\n​${s}－${e}｜保溫瓶挑選＆創作互動 (${d} min)\n• 引導至展示區挑選保溫瓶，分享挑選原因。\n• 現場繪圖設計雷射雕刻圖案，雷雕製作同步進行。` },
             { id: 3, getText: (s, e, d) => `\n​${s}－${e}｜保溫瓶加購 (${d} min)\n• 邀請 2 位現場購買保溫瓶的粉絲上台，協助搭配保溫瓶款式與顏色。` },
             { id: 4, getText: (s, e, d) => `\n​${s}－${e}｜互動時間 (${d} min)\n• 抽選粉絲上台進行趣味互動遊戲。\n• 獲勝者拿拍立得，落敗者與 ${name} 一起進行懲罰舞蹈挑戰。` },
             { id: 5, getText: (s, e, d) => `\n​${s}－${e}｜大合照 (${d} min)\n• 全體粉絲與 ${name} 一日店長大合照。` },
             { id: 6, getText: (s, e, d) => `\n​${s}－${e}｜保溫瓶競標 (${d} min)\n• 進行雷雕作品現場競標（3000 起標，1 標 500）。\n• 得標者上台與 ${name} 合照。` },
             { id: 7, getText: (s, e, d) => `\n​${s}－${e}｜立牌競標 (${d} min)\n• 1:1 人形立牌現場競標（3000 起標，1 標 500）。\n• 得標者上台與 ${name} 合照。` },
-            { id: 8, getText: (s, e, d) => `\n​${s}－${e}｜合照時間 (${d} min)\n• 與粉絲個別進行拍立得及手機相機合照\n（手機+相機+拍立得）30位\n（手機+相機）30位\n 共 60 位` },
-            { id: 9, getText: (s, e, d) => `\n​${s}－${e}｜簽名時間 (${d} min)\n• 簽名互動（共計 60 位）。\n• 一個資格各可簽 2 樣物品，僅限活動感謝簽名板或所屬職業球團相關商品，私人物品以現場認定。\n1.空白球需署名，請提前準備好署名小紙條以利活動順利進行。\n2.任何小卡類物品恕不開放簽名。` },
+            { id: 8, getText: (s, e, d) => `\n​${s}－${e}｜合照時間 (${d} min)\n• 與粉絲個別進行合照。` },
+            { id: 9, getText: (s, e, d) => `\n​${s}－${e}｜簽名時間 (${d} min)\n• 簽名互動。\n• 一個資格各可簽 2 樣物品，僅限活動簽名板或所屬職業球團相關商品，私人物品以現場認定。\n1.空白球需署名，請提前準備好署名小紙條以利活動順利進行。\n2.任何小卡類物品恕不開放簽名。` },
             { id: 10, getText: (s, e, d) => `\n​${s}－${e}｜緩衝時間 ` }
         ];
 
